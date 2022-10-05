@@ -2,6 +2,7 @@
 using Business.BusinessRules;
 using Business.Concrete;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,7 +18,7 @@ namespace Business
         public static IServiceCollection AddBusinessServices(this IServiceCollection services) 
         {
             
-            services.AddSingleton<IBrandDal, InMemoryBrandDal>(); // 100
+            services.AddSingleton<IBrandDal, EfBrandDal>(); // 100
             services.AddSingleton<BrandBusinessRules>(); // 101
             services.AddSingleton<IBrandService, BrandManager>(); // 102
             services.AddAutoMapper(assemblies: AppDomain.CurrentDomain.GetAssemblies());

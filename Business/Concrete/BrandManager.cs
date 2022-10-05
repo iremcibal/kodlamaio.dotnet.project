@@ -44,7 +44,7 @@ namespace Business.Concrete
 
         public void Update(UpdateBrandRequest request)
         {
-            Brand? brandToUpdate = _brandDal.GetById(request.Id);
+            Brand? brandToUpdate = _brandDal.Get(b=>b.Id==request.Id);
             _brandBusinessRules.CheckIfBrandExist(brandToUpdate);
             Brand brand = _mapper.Map<Brand>(brandToUpdate);
 
@@ -62,7 +62,7 @@ namespace Business.Concrete
 
         public GetBrandResponse GetById(int id)
         {
-            Brand brandToUpdate = _brandDal.GetById(id);
+            Brand brandToUpdate = _brandDal.Get(b=>b.Id==id);
             var response = _mapper.Map<GetBrandResponse>(brandToUpdate);
 
             return response;

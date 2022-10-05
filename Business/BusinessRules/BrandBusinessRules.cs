@@ -34,13 +34,13 @@ namespace Business.BusinessRules
 
         public void CheckIfBrandExist(int brandId)
         {
-            Brand? brand = _brandDal.GetById(brandId);
+            Brand? brand = _brandDal.Get(b=>b.Id==brandId);
             CheckIfBrandExist(brand);
         }
 
         public void CheckIfBrandNameExist(string brandName)
         {
-            Brand? brand = _brandDal.GetByName(brandName);
+            Brand? brand = _brandDal.Get(b=>b.Name==brandName);
             CheckIfBrandNotExist(brand);
         }
     }
