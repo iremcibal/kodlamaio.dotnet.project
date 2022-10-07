@@ -10,7 +10,9 @@ namespace DataAccess.Concrete.EntityFramework.Context
 {
     public class ReCapProjectContext : DbContext 
     {
-        public DbSet<Brand> brands;
+        public DbSet<Brand> Brands;
+        public DbSet<CarType> CarType;
+        public DbSet<Color> Colors;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,7 +30,23 @@ namespace DataAccess.Concrete.EntityFramework.Context
                 b.Property(b => b.Name).HasColumnName("Name").IsRequired();
             });
 
+            modelBuilder.Entity<CarType>(ct =>
+            {
+                ct.ToTable("CarType").HasKey(k => k.Id);
+                ct.Property(ct => ct.Id).HasColumnName("Id");
+                ct.Property(ct => ct.Name).HasColumnName("Name").IsRequired();
+            });
+
+            modelBuilder.Entity<Color>(c =>
+            {
+                c.ToTable("Colors").HasKey(k => k.Id);
+                c.Property(c => c.Id).HasColumnName("Id");
+                c.Property(c => c.Name).HasColumnName("Name").IsRequired();
+            });
+
         }
+
+
 
     }
 }

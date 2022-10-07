@@ -36,7 +36,7 @@ namespace Business.Concrete
 
         public void Delete(DeleteBrandRequest request)
         {
-            //_brandBusinessRules.CheckIfBrandExist(request.Id);
+            _brandBusinessRules.CheckIfBrandExist(request.Id);
             Brand brand = _mapper.Map<Brand>(request);
 
             _brandDal.Delete(brand);
@@ -44,9 +44,8 @@ namespace Business.Concrete
 
         public void Update(UpdateBrandRequest request)
         {
-            Brand? brandToUpdate = _brandDal.Get(b=>b.Id==request.Id);
-            _brandBusinessRules.CheckIfBrandExist(brandToUpdate);
-            Brand brand = _mapper.Map<Brand>(brandToUpdate);
+            _brandBusinessRules.CheckIfBrandExist(request.Id);
+            Brand brand = _mapper.Map<Brand>(request);
 
             _brandDal.Update(brand);
         }

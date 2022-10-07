@@ -43,7 +43,7 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpDelete("id")]
+        [HttpDelete("{Id}")]
         public void Delete([FromRoute] DeleteBrandRequest request)
         {
             _brandService.Delete(request);

@@ -23,7 +23,15 @@ namespace Business
             services.AddSingleton<IBrandService, BrandManager>(); // 102
             services.AddAutoMapper(assemblies: AppDomain.CurrentDomain.GetAssemblies());
 
-            
+            services.AddSingleton<ICarTypeDal, EfCarTypeDal>();
+            services.AddSingleton<CarTypeBusinessRules>();
+            services.AddSingleton<ICarTypeService,CarTypeManager>();
+
+            services.AddSingleton<IColorDal, EfColorDal>();
+            services.AddSingleton<ColorBusinessRules>();
+            services.AddSingleton<IColorService, ColorManager>();
+
+
             return services;
         }
     }
