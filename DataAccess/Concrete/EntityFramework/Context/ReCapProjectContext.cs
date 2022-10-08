@@ -44,6 +44,13 @@ namespace DataAccess.Concrete.EntityFramework.Context
                 c.Property(c => c.Name).HasColumnName("Name").IsRequired();
             });
 
+            modelBuilder.Entity<Fuel>(f =>
+            {
+                f.ToTable("Fuels").HasKey(k=>k.Id); 
+                f.Property(f => f.Id).HasColumnName("Id");
+                f.Property(f => f.Name).HasColumnName("Name").IsRequired();
+            });
+
         }
 
 

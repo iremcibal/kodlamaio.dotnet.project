@@ -31,6 +31,9 @@ namespace Business
             services.AddSingleton<ColorBusinessRules>();
             services.AddSingleton<IColorService, ColorManager>();
 
+            services.AddSingleton<IFuelDal, EfFuelDal>();
+            services.AddSingleton<FuelBusinessRules>();
+            services.AddSingleton<IFuelService, FuelManager>();
 
             return services;
         }
