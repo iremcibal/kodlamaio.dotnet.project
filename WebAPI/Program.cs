@@ -1,4 +1,5 @@
 using Business;
+using Core.CrossCuttingConcerns.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,5 +25,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+//if (app.Environment.IsProduction())
+    app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();

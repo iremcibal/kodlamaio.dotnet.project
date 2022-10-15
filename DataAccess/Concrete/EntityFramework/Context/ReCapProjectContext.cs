@@ -13,6 +13,7 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<Brand> Brands;
         public DbSet<CarType> CarType;
         public DbSet<Color> Colors;
+        public DbSet<Model> Models;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -49,6 +50,22 @@ namespace DataAccess.Concrete.EntityFramework.Context
                 f.ToTable("Fuels").HasKey(k=>k.Id); 
                 f.Property(f => f.Id).HasColumnName("Id");
                 f.Property(f => f.Name).HasColumnName("Name").IsRequired();
+            });
+
+            modelBuilder.Entity<Model>(m =>
+            {
+                m.ToTable("Models").HasKey(k => k.Id);
+                m.Property(m => m.Id).HasColumnName("Id");
+                m.Property(m => m.Name).HasColumnName("Name").IsRequired();
+                m.Property(m => m.DailyPrice).HasColumnName("DailyPrice");
+                m.Property(m => m.BrandId).HasColumnName("BrandId");
+                m.Property(m => m.CarTypeId).HasColumnName("CarTypeId");
+                m.Property(m => m.ColorId).HasColumnName("ColorId");
+                m.Property(m => m.FuelId).HasColumnName("FuelId");
+                m.HasOne(m => m.brand);
+                m.HasOne(m => m.fuel);
+                m.HasOne(m => m.carType);
+                m.HasOne(m => m.color);
             });
 
         }

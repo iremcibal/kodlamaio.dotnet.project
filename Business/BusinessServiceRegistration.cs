@@ -35,6 +35,10 @@ namespace Business
             services.AddSingleton<FuelBusinessRules>();
             services.AddSingleton<IFuelService, FuelManager>();
 
+            services.AddSingleton<IModelDal, EfModelDal>();
+            services.AddSingleton<ModelBusinessRules>();
+            services.AddSingleton<IModelService, ModelManager>();
+
             return services;
         }
     }
