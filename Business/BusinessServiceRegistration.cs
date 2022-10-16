@@ -47,6 +47,10 @@ namespace Business
             services.AddSingleton<CarBusinessRules>();
             services.AddSingleton<ICarService, CarManager>();
 
+            services.AddSingleton<IUserDal, EfUserDal>();
+            services.AddSingleton<UserBusinessRules>();
+            services.AddSingleton<IUserService, UserManager>();
+
             return services;
         }
     }

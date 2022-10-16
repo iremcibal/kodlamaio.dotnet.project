@@ -16,6 +16,7 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<Model> Models;
         public DbSet<CarState> CarStates;
         public DbSet<Car> Cars;
+        public DbSet<User> Users;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Windows Auth için "...;Integrated Security=True"
@@ -58,6 +59,19 @@ namespace DataAccess.Concrete.EntityFramework.Context
                 f.ToTable("CarStates").HasKey(k => k.Id);
                 f.Property(f => f.Id).HasColumnName("Id");
                 f.Property(f => f.Name).HasColumnName("Name").IsRequired();
+            });
+
+            modelBuilder.Entity<User>(f =>
+            {
+                f.ToTable("Users").HasKey(k => k.Id);
+                f.Property(f => f.Id).HasColumnName("Id");
+                f.Property(f => f.FirstName).HasColumnName("FirstName");
+                f.Property(f => f.LastName).HasColumnName("LastName");
+                f.Property(f => f.Email).HasColumnName("Email");
+                f.Property(f => f.PasswordHash).HasColumnName("PasswordHash");
+                f.Property(f => f.PasswordSalt).HasColumnName("PasswordSalt");
+                f.Property(f => f.Status).HasColumnName("Status");
+
             });
 
             modelBuilder.Entity<Model>(m =>
