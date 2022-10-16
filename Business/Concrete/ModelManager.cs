@@ -3,6 +3,8 @@ using Business.Abstract;
 using Business.BusinessRules;
 using Business.Requests.Models;
 using Business.Responses.Models;
+using Business.ValidationRules.FluentValidation.Model;
+using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -28,8 +30,10 @@ namespace Business.Concrete
 
         public void Add(CreateModelRequest request)
         {
+            ValidationTool<CreateModelRequest>.Validate(typeof(CreateModelRequestValidator),request);
             _businessRules.CheckIfModelNameExist(request.Name);
             Model model = _mapper.Map<Model>(request);
+            
             _modelDal.Add(model);
         }
 

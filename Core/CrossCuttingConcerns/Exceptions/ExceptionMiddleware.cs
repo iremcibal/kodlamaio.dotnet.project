@@ -52,6 +52,7 @@ namespace Core.CrossCuttingConcerns.Exceptions
         private Task CreateValidationException(HttpContext context, Exception exception)
         {
             context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
+            ValidationException validationException = exception as ValidationException;
             return context.Response.WriteAsync(new ValidationProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
@@ -59,7 +60,7 @@ namespace Core.CrossCuttingConcerns.Exceptions
                 Title = "Validation Excepiton",
                 Detail = "",
                 Instance = " ",
-                Errors = (ValidationException)exception.Errors
+                Errors = validationException.Errors
             }.ToString());
         }
 
