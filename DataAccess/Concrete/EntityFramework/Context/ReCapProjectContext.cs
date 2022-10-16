@@ -17,6 +17,7 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<CarState> CarStates;
         public DbSet<Car> Cars;
         public DbSet<User> Users;
+        public DbSet<Rental> Rentals;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Windows Auth için "...;Integrated Security=True"
@@ -59,6 +60,21 @@ namespace DataAccess.Concrete.EntityFramework.Context
                 f.ToTable("CarStates").HasKey(k => k.Id);
                 f.Property(f => f.Id).HasColumnName("Id");
                 f.Property(f => f.Name).HasColumnName("Name").IsRequired();
+            });
+
+            modelBuilder.Entity<Rental>(f =>
+            {
+                f.ToTable("Rentals").HasKey(k => k.Id);
+                f.Property(f => f.Id).HasColumnName("Id");
+                f.Property(f => f.CustomerId).HasColumnName("CustomerId").IsRequired();
+                f.Property(f => f.CarId).HasColumnName("CarId"); 
+                f.Property(f => f.RentDate).HasColumnName("RentDate");
+                f.Property(f => f.ReturnDate).HasColumnName("ReturnDate");
+                f.Property(f => f.BillNumber).HasColumnName("BillNumber");
+                f.Property(f => f.RentTotal).HasColumnName("RentTotal");
+                f.Property(f => f.PriceTotal).HasColumnName("PriceTotal");
+                f.HasOne(f => f.car);
+                f.HasOne(f => f.customer);
             });
 
             modelBuilder.Entity<User>(f =>

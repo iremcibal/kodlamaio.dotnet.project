@@ -51,6 +51,10 @@ namespace Business
             services.AddSingleton<UserBusinessRules>();
             services.AddSingleton<IUserService, UserManager>();
 
+            services.AddSingleton<IRentalDal, EfRentalDal>();
+            //services.AddSingleton<RentalBusinessRules>();
+            services.AddSingleton<IRentalService, RentalManager>();
+
             return services;
         }
     }
