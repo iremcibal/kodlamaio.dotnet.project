@@ -14,7 +14,8 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<CarType> CarType;
         public DbSet<Color> Colors;
         public DbSet<Model> Models;
-
+        public DbSet<CarState> CarStates;
+        public DbSet<Car> Cars;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Windows Auth için "...;Integrated Security=True"
@@ -52,6 +53,13 @@ namespace DataAccess.Concrete.EntityFramework.Context
                 f.Property(f => f.Name).HasColumnName("Name").IsRequired();
             });
 
+            modelBuilder.Entity<CarState>(f =>
+            {
+                f.ToTable("CarStates").HasKey(k => k.Id);
+                f.Property(f => f.Id).HasColumnName("Id");
+                f.Property(f => f.Name).HasColumnName("Name").IsRequired();
+            });
+
             modelBuilder.Entity<Model>(m =>
             {
                 m.ToTable("Models").HasKey(k => k.Id);
@@ -67,6 +75,24 @@ namespace DataAccess.Concrete.EntityFramework.Context
                 m.HasOne(m => m.carType);
                 m.HasOne(m => m.color);
             });
+
+            modelBuilder.Entity<Car>(m =>
+            {
+                m.ToTable("Cars").HasKey(k => k.Id);
+                m.Property(m => m.Id).HasColumnName("Id");
+                m.Property(m => m.CarName).HasColumnName("CarName").IsRequired();
+                m.Property(m => m.Plate).HasColumnName("Plate");
+                m.Property(m => m.ModelYear).HasColumnName("ModelYear");
+                m.Property(m => m.DailyPrice).HasColumnName("DailyPrice");
+                m.Property(m => m.Description).HasColumnName("Description");
+                m.Property(m => m.Kilometer).HasColumnName("Kilometer");
+                m.Property(m => m.CarStateId).HasColumnName("CarStateId");
+                m.Property(m => m.ModelId).HasColumnName("ModelId");
+                m.HasOne(m => m.carState);
+                m.HasOne(m => m.Model);
+            });
+
+            
 
         }
 
