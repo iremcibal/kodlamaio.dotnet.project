@@ -1,5 +1,6 @@
 ﻿using Business.Requests.Users;
 using Business.Responses.Users;
+using Core.Business.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Business.Abstract
     public interface IUserService
     {
         GetUserResponse GetById(int id);
-        List<ListUserResponse> GetList();
+        PaginateListUserResponse GetList(PageRequest request);
         void Add(CreateUserRequest request);
         void Delete(DeleteUserRequest request);
         void Update(UpdateUserRequest request);

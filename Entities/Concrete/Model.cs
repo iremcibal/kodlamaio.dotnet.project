@@ -16,10 +16,11 @@ namespace Entities.Concrete
         public int ColorId { get; set; }
         public string Name { get; set; }
         public int DailyPrice { get; set; }
-        public Brand brand { get; set; }
-        public Fuel fuel { get; set; }
-        public CarType carType { get; set; }
-        public Color color { get; set; }
+        public virtual Brand brand { get; set; }
+        public virtual Fuel fuel { get; set; }
+        public virtual CarType carType { get; set; }
+        public virtual Color color { get; set; }
+
 
     }
 }

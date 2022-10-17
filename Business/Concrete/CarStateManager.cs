@@ -3,6 +3,8 @@ using Business.Abstract;
 using Business.BusinessRules;
 using Business.Requests.CarStates;
 using Business.Responses.CarStates;
+using Core.Business.Requests;
+using Core.DataAccess.Paging;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -50,11 +52,12 @@ namespace Business.Concrete
 
             return response;
         }
-
-        public List<ListCarStateResponse> GetList()
+        public PaginateListCarStateResponse GetList(PageRequest request)
         {
-            List<CarState> carStateToList = _carStateDal.GetList();
-            List<ListCarStateResponse> response = _mapper.Map<List<ListCarStateResponse>>(carStateToList);
+            IPaginate<CarState> brands = _carStateDal.GetList(index: request.Index,
+                                                             size: request.Size);
+
+            PaginateListCarStateResponse response = _mapper.Map<PaginateListCarStateResponse>(brands);
 
             return response;
         }

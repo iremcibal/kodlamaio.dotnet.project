@@ -2,8 +2,11 @@
 using Business.Abstract;
 using Business.Requests.Rentals;
 using Business.Responses.Rentals;
+using Core.Business.Requests;
+using Core.DataAccess.Paging;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,18 +40,20 @@ namespace Business.Concrete
             _rentalDal.Delete(rental);
         }
 
-        public GetRentalResponse GetById(int id)
+        public GetRentalResponse GetById(GetRentalRequest request)
         {
-            Rental rental = _rentalDal.Get(b => b.Id == id);
+            Rental rental = _rentalDal.Get(b => b.Id == request.Id, r=>r.Include(ri=>ri.Customer).Include(ri=>ri.Car));
             var response = _mapper.Map<GetRentalResponse>(rental);
 
             return response;
         }
 
-        public List<ListRentalResponse> GetList()
+        public PaginateListRentalResponse GetList(PageRequest request)
         {
-            List<Rental> rental = _rentalDal.GetList();
-            List<ListRentalResponse> response = _mapper.Map<List<ListRentalResponse>>(rental);
+            IPaginate<Rental> brands = _rentalDal.GetList(index: request.Index,
+                                                                   size: request.Size);
+
+            PaginateListRentalResponse response = _mapper.Map<PaginateListRentalResponse>(brands);
 
             return response;
         }

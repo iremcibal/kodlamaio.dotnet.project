@@ -1,5 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.Paging;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +59,16 @@ namespace DataAccess.Concrete.InMemory
         }
 
         public List<Brand> GetList(Expression<Func<Brand, bool>>? predicate = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Brand? Get(Expression<Func<Brand, bool>> predicate, Func<IQueryable<Brand>, IIncludableQueryable<Brand, object>> include = null, bool enableTracking = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPaginate<Brand> GetList(Expression<Func<Brand, bool>>? predicate = null, Func<IQueryable<Brand>, IIncludableQueryable<Brand, object>> include = null, Func<IQueryable<Brand>, IOrderedQueryable<Brand>> orderBy = null, int index = 0, int size = 10, bool enableTracking = true)
         {
             throw new NotImplementedException();
         }

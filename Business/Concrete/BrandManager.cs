@@ -3,6 +3,8 @@ using Business.Abstract;
 using Business.BusinessRules;
 using Business.Requests.Brands;
 using Business.Responses.Brands;
+using Core.Business.Requests;
+using Core.DataAccess.Paging;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -49,16 +51,6 @@ namespace Business.Concrete
 
             _brandDal.Update(brand);
         }
-
-        public List<ListBrandResponse> GetList()
-        {
-            List<Brand> brandToList = _brandDal.GetList();
-            List<ListBrandResponse> response = _mapper.Map<List<ListBrandResponse>>(brandToList);
-
-            return response;
-
-        }
-
         public GetBrandResponse GetById(int id)
         {
             Brand brandToUpdate = _brandDal.Get(b=>b.Id==id);
@@ -66,6 +58,16 @@ namespace Business.Concrete
 
             return response;
 
+        }
+
+        public PaginateListBrandResponse GetList(PageRequest request)
+        {
+            IPaginate<Brand> brands = _brandDal.GetList(index: request.Index,
+                                                            size: request.Size);
+
+            PaginateListBrandResponse response = _mapper.Map<PaginateListBrandResponse>(brands);
+
+            return response;
         }
     }
 }

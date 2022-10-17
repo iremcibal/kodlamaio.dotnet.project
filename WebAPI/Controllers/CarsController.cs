@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Requests.Cars;
 using Business.Responses.Cars;
+using Core.Business.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,16 +19,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<ListCarResponse> GetList()
+        public PaginateListCarResponse GetList([FromQuery] PageRequest request)
         {
-            List<ListCarResponse> result = _carService.GetList();
+            PaginateListCarResponse result = _carService.GetList(request);
             return result;
         }
 
-        [HttpGet("{id}")]
-        public GetCarResponse GetById(int id)
+        [HttpGet("{Id}")]
+        public GetCarResponse GetById([FromRoute] GetCarRequest request)
         {
-            GetCarResponse response = _carService.GetById(id);
+            GetCarResponse response = _carService.GetById(request);
             return response;
         }
 

@@ -1,5 +1,6 @@
 ﻿using Business.Requests.Models;
 using Business.Responses.Models;
+using Core.Business.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,14 @@ namespace Business.Abstract
 {
     public interface IModelService
     {
-        GetModelResponse GetById(int id);
-        List<ListModelResponse> GetList();
+        GetModelResponse GetById(GetModelRequest request);
+        PaginateListModelResponse GetList(PageRequest request);
         void Add(CreateModelRequest request);
         void Delete(DeleteModelRequest request);
         void Update(UpdateModelRequest request);
-        List<ListModelResponse> GetModelsByBrandId(int brandId);
-        List<ListModelResponse> GetModelsByColorId(int colorId);
-        List<ListModelResponse> GetModelsByFuelId(int fuelId);
-        List<ListModelResponse> GetModelsByCarTypeId(int carTypeId);
+        PaginateListModelResponse GetModelsByBrandId(PageRequest request,int brandId);
+        PaginateListModelResponse GetModelsByColorId(PageRequest request,int colorId);
+        PaginateListModelResponse GetModelsByFuelId(PageRequest request,int fuelId);
+        PaginateListModelResponse GetModelsByCarTypeId(PageRequest request,int carTypeId);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Requests.Models;
 using Business.Responses.Models;
+using Core.Business.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<ListModelResponse> GetList()
+        public PaginateListModelResponse GetList([FromQuery] PageRequest request)
         {
-            List<ListModelResponse> response = _modelService.GetList();
+            PaginateListModelResponse response = _modelService.GetList(request);
             return response;
         }
 
@@ -29,38 +30,38 @@ namespace WebAPI.Controllers
             _modelService.Add(request);
         }
 
-        [HttpGet("{id}")]
-        public GetModelResponse Get(int id)
+        [HttpGet("{Id}")]
+        public GetModelResponse Get([FromRoute] GetModelRequest request)
         {
-            GetModelResponse response = _modelService.GetById(id);
+            GetModelResponse response = _modelService.GetById(request);
             return response;
         }
 
         [HttpGet("/brandid")]
-        public List<ListModelResponse> GetBrandId(int brandId)
+        public PaginateListModelResponse GetModelsByBrandId([FromQuery] PageRequest request,int brandId)
         {
-            List<ListModelResponse> response = _modelService.GetModelsByBrandId(brandId);
+            PaginateListModelResponse response = _modelService.GetModelsByBrandId(request,brandId);
             return response;
         }
 
         [HttpGet("/fuelid")]
-        public List<ListModelResponse> GetFuelId(int fuelId)
+        public PaginateListModelResponse GetModelsByFuelId([FromQuery] PageRequest request, int fuelId)
         {
-            List<ListModelResponse> response = _modelService.GetModelsByFuelId(fuelId);
+            PaginateListModelResponse response = _modelService.GetModelsByFuelId(request, fuelId);
             return response;
         }
 
         [HttpGet("/cartypeid")]
-        public List<ListModelResponse> GetCarTypeId(int carTypeId)
+        public PaginateListModelResponse GetModelsByCarTypeId([FromQuery] PageRequest request, int typeId)
         {
-            List<ListModelResponse> response = _modelService.GetModelsByCarTypeId(carTypeId);
+            PaginateListModelResponse response = _modelService.GetModelsByCarTypeId(request, typeId);
             return response;
         }
 
         [HttpGet("/colorid")]
-        public List<ListModelResponse> GetColorId(int colorId)
+        public PaginateListModelResponse GetModelsByColorId([FromQuery] PageRequest request, int colorId)
         {
-            List<ListModelResponse> response = _modelService.GetModelsByColorId(colorId);
+            PaginateListModelResponse response = _modelService.GetModelsByColorId(request, colorId);
             return response;
         }
 

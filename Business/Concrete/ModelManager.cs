@@ -4,9 +4,12 @@ using Business.BusinessRules;
 using Business.Requests.Models;
 using Business.Responses.Models;
 using Business.ValidationRules.FluentValidation.Model;
+using Core.Business.Requests;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
+using Core.DataAccess.Paging;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,52 +47,63 @@ namespace Business.Concrete
             _modelDal.Delete(model);
         }
 
-        public GetModelResponse GetById(int id)
+        public GetModelResponse GetById(GetModelRequest request)
         {
-            Model model = _modelDal.Get(f => f.Id == id);
+            Model model = _modelDal.Get(f => f.Id == request.Id,
+                f=>f.Include(fi=>fi.brand).Include(fi=>fi.carType).Include(fi=>fi.color).Include(fi=>fi.fuel));
             GetModelResponse response = _mapper.Map<GetModelResponse>(model);
 
             return response;
         }
 
-        public List<ListModelResponse> GetList()
+        public PaginateListModelResponse GetList(PageRequest request)
         {
-            List<Model> model = _modelDal.GetList();
-            List<ListModelResponse> lists = _mapper.Map<List<ListModelResponse>>(model);
+            IPaginate<Model> brands = _modelDal.GetList(index: request.Index,
+                                                                size: request.Size);
 
-            return lists;
+            PaginateListModelResponse response = _mapper.Map<PaginateListModelResponse>(brands);
+
+            return response;
         }
 
-        public List<ListModelResponse> GetModelsByBrandId(int brandId)
+        public PaginateListModelResponse GetModelsByBrandId(PageRequest request, int brandId)
         {
-            List<Model> model = _modelDal.GetList(m=>m.BrandId==brandId);
-            List<ListModelResponse> lists = _mapper.Map<List<ListModelResponse>>(model);
+            IPaginate<Model> brands = _modelDal.GetList(m=>m.BrandId==brandId, index: request.Index,
+                                                                size: request.Size);
 
-            return lists;
+            PaginateListModelResponse response = _mapper.Map<PaginateListModelResponse>(brands);
+
+            return response;
         }
 
-        public List<ListModelResponse> GetModelsByCarTypeId(int carTypeId)
+        public PaginateListModelResponse GetModelsByCarTypeId(PageRequest request, int carTypeId)
         {
-            List<Model> model = _modelDal.GetList(m => m.CarTypeId == carTypeId);
-            List<ListModelResponse> lists = _mapper.Map<List<ListModelResponse>>(model);
+            IPaginate<Model> brands = _modelDal.GetList(m => m.CarTypeId == carTypeId, index: request.Index,
+                                                                size: request.Size);
 
-            return lists;
+            PaginateListModelResponse response = _mapper.Map<PaginateListModelResponse>(brands);
+
+            return response;
         }
 
-        public List<ListModelResponse> GetModelsByColorId(int colorId)
+        public PaginateListModelResponse GetModelsByColorId(PageRequest request, int colorId)
         {
-            List<Model> model = _modelDal.GetList(m => m.ColorId == colorId);
-            List<ListModelResponse> lists = _mapper.Map<List<ListModelResponse>>(model);
+            IPaginate<Model> brands = _modelDal.GetList(m => m.ColorId == colorId, index: request.Index,
+                                                                size: request.Size);
 
-            return lists;
+            PaginateListModelResponse response = _mapper.Map<PaginateListModelResponse>(brands);
+
+            return response;
         }
 
-        public List<ListModelResponse> GetModelsByFuelId(int fuelId)
+        public PaginateListModelResponse GetModelsByFuelId(PageRequest request, int fuelId)
         {
-            List<Model> model = _modelDal.GetList(m => m.FuelId == fuelId);
-            List<ListModelResponse> lists = _mapper.Map<List<ListModelResponse>>(model);
+            IPaginate<Model> brands = _modelDal.GetList(m => m.FuelId == fuelId, index: request.Index,
+                                                              size: request.Size);
 
-            return lists;
+            PaginateListModelResponse response = _mapper.Map<PaginateListModelResponse>(brands);
+
+            return response;
         }
 
         public void Update(UpdateModelRequest request)

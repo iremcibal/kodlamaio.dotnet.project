@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Requests.Brands;
 using Business.Responses.Brands;
+using Core.Business.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -17,9 +18,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<ListBrandResponse> GetList()
+        public PaginateListBrandResponse GetList([FromQuery] PageRequest request)
         {
-            List<ListBrandResponse> result = _brandService.GetList();
+            PaginateListBrandResponse result = _brandService.GetList(request);
             return result;
         }
 

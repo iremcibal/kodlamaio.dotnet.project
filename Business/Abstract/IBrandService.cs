@@ -1,5 +1,6 @@
 ﻿using Business.Requests.Brands;
 using Business.Responses.Brands;
+using Core.Business.Requests;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Business.Abstract
     public interface IBrandService
     {
         GetBrandResponse GetById(int id);
-        List<ListBrandResponse> GetList();
+        PaginateListBrandResponse GetList(PageRequest request);
         void Add(CreateBrandRequest request);
         void Delete(DeleteBrandRequest request);
         void Update(UpdateBrandRequest request);

@@ -3,6 +3,8 @@ using Business.Abstract;
 using Business.BusinessRules;
 using Business.Requests.Fuels;
 using Business.Responses.Fuels;
+using Core.Business.Requests;
+using Core.DataAccess.Paging;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -48,13 +50,14 @@ namespace Business.Concrete
             return response;
         }
 
-        public List<ListFuelResponse> GetList()
+        public PaginateListFuelResponse GetList(PageRequest request)
         {
-            List<Fuel> fuel = _fuelDal.GetList();
-            List<ListFuelResponse> lists = _mapper.Map<List<ListFuelResponse>>(fuel);
+            IPaginate<Fuel> brands = _fuelDal.GetList(index: request.Index,
+                                                               size: request.Size);
 
-            return lists;
+            PaginateListFuelResponse response = _mapper.Map<PaginateListFuelResponse>(brands);
 
+            return response;
         }
 
         public void Update(UpdateFuelRequest request)

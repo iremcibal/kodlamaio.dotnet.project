@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Requests.CarStates;
 using Business.Responses.CarStates;
+using Core.Business.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +19,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<ListCarStateResponse> GetList()
+        public PaginateListCarStateResponse GetList([FromQuery] PageRequest request)
         {
-            List<ListCarStateResponse> result = _carStateService.GetList();
+            PaginateListCarStateResponse result = _carStateService.GetList(request);
             return result;
         }
 

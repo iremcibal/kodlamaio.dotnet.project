@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Requests.CarTypes;
 using Business.Responses.Brands;
+using Business.Responses.CarTypes;
+using Core.Business.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -17,9 +19,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<ListCarTypeResponse> GetList()
+        public PaginateListCarTypeResponse GetList([FromQuery] PageRequest request)
         {
-            List<ListCarTypeResponse> result = _carTypeService.GetList();
+            PaginateListCarTypeResponse result = _carTypeService.GetList(request);
             return result;
         }
 

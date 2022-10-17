@@ -3,6 +3,8 @@ using Business.Abstract;
 using Business.BusinessRules;
 using Business.Requests.Colors;
 using Business.Responses.Colors;
+using Core.Business.Requests;
+using Core.DataAccess.Paging;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -50,13 +52,14 @@ namespace Business.Concrete
 
         }
 
-        public List<ListColorResponse> GetList()
+        public PaginateListColorResponse GetList(PageRequest request)
         {
-            List<Color> colors = _colorDal.GetList();
-            List<ListColorResponse> response = _mapper.Map<List<ListColorResponse>>(colors);
+            IPaginate<Color> brands = _colorDal.GetList(index: request.Index,
+                                                                size: request.Size);
+
+            PaginateListColorResponse response = _mapper.Map<PaginateListColorResponse>(brands);
 
             return response;
-
         }
 
         public void Update(UpdateColorRequest request)

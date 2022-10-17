@@ -18,8 +18,8 @@ namespace Entities.Concrete
         public string Plate { get; set; }
         public int ModelId { get; set; }
         public int CarStateId { get; set; }
-        public Model Model { get; set; }
-        public CarState carState { get; set; }
+        public virtual Model Model { get; set; }
+        public virtual CarState carState { get; set; }
 
     }
 }

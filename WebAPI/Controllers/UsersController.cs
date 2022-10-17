@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Requests.Users;
 using Business.Responses.Users;
+using Core.Business.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,10 +19,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<ListUserResponse> GetList()
+        public PaginateListUserResponse GetList([FromQuery] PageRequest request)
         {
-            List<ListUserResponse> result = _userService.GetList();
-            return result;
+            PaginateListUserResponse response = _userService.GetList(request);
+            return response;
         }
 
         [HttpGet("{id}")]

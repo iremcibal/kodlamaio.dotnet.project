@@ -1,5 +1,6 @@
 ﻿using Business.Requests.Rentals;
 using Business.Responses.Rentals;
+using Core.Business.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace Business.Abstract
 {
     public interface IRentalService
     {
-        GetRentalResponse GetById(int id);
-        List<ListRentalResponse> GetList();
+        GetRentalResponse GetById(GetRentalRequest request);
+        PaginateListRentalResponse GetList(PageRequest request);
         void Add(CreateRentalRequest request);
         void Delete(DeleteRentalRequest request);
         void Update(UpdateRentalRequest request);

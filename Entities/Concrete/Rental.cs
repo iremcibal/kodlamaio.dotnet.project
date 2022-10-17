@@ -17,8 +17,8 @@ namespace Entities.Concrete
         public int BillNumber { get; set; }
         public int RentTotal { get; set; }
         public int PriceTotal { get; set; }
-        public Car car { get; set; }
-        public Customer customer { get; set; }
+        public virtual Car Car { get; set; }
+        public virtual Customer Customer { get; set; }
 
 
 

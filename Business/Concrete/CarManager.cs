@@ -4,9 +4,12 @@ using Business.BusinessRules;
 using Business.Requests.Cars;
 using Business.Responses.Cars;
 using Business.ValidationRules.FluentValidation.Car;
+using Core.Business.Requests;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
+using Core.DataAccess.Paging;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,18 +50,20 @@ namespace Business.Concrete
             _carDal.Delete(car);
         }
 
-        public GetCarResponse GetById(int id)
+        public GetCarResponse GetById(GetCarRequest request)
         {
-            Car car = _carDal.Get(b => b.Id == id);
+            Car car = _carDal.Get(predicate : b => b.Id == request.Id,include : b => b.Include(bi => bi.Model).Include(bi => bi.carState));
             var response = _mapper.Map<GetCarResponse>(car);
 
             return response;
         }
 
-        public List<ListCarResponse> GetList()
+        public PaginateListCarResponse GetList(PageRequest request)
         {
-            List<Car> car = _carDal.GetList();
-            List<ListCarResponse> response = _mapper.Map<List<ListCarResponse>>(car);
+            IPaginate<Car> cars = _carDal.GetList(index: request.Index,
+                                                    size: request.Size);
+
+            PaginateListCarResponse response = _mapper.Map<PaginateListCarResponse>(cars);
 
             return response;
         }

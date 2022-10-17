@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Requests.Fuels;
 using Business.Responses.Fuels;
+using Core.Business.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,10 +44,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<ListFuelResponse> GetList()
+        public PaginateListFuelResponse GetList([FromQuery] PageRequest request)
         {
-            List<ListFuelResponse> response = _fuelService.GetList();
-            return response;
+            PaginateListFuelResponse result = _fuelService.GetList(request);
+            return result;
         }
 
 

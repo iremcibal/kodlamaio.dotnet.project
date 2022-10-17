@@ -9,7 +9,8 @@ namespace Business.Responses.Rentals
     public class GetRentalResponse
     {
         public int CarId { get; set; }
-        public int CustomerId { get; set; }
+        public string companyName { get; set; }
+        public string carName { get; set; }
         public DateTime RentDate { get; set; }
         public DateTime? ReturnDate { get; set; }
         public int BillNumber { get; set; }

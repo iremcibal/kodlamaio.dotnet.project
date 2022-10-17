@@ -1,5 +1,6 @@
 ﻿using Business.Requests.Colors;
 using Business.Responses.Colors;
+using Core.Business.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Business.Abstract
         public void Delete(DeleteColorRequest request);
         public void Update(UpdateColorRequest request);
         GetColorResponse GetById(int id);
-        List<ListColorResponse> GetList();
+        PaginateListColorResponse GetList(PageRequest request);
 
     }
 }

@@ -3,6 +3,8 @@ using Business.Abstract;
 using Business.BusinessRules;
 using Business.Requests.Users;
 using Business.Responses.Users;
+using Core.Business.Requests;
+using Core.DataAccess.Paging;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -52,10 +54,12 @@ namespace Business.Concrete
             return response;
         }
 
-        public List<ListUserResponse> GetList()
+        public PaginateListUserResponse GetList(PageRequest request)
         {
-            List<User> user = _userDal.GetList();
-            List<ListUserResponse> response = _mapper.Map<List<ListUserResponse>>(user);
+            IPaginate<User> brands = _userDal.GetList(index: request.Index,
+                                                                   size: request.Size);
+
+            PaginateListUserResponse response = _mapper.Map<PaginateListUserResponse>(brands);
 
             return response;
         }

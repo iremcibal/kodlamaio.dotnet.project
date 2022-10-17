@@ -3,6 +3,9 @@ using Business.Abstract;
 using Business.BusinessRules;
 using Business.Requests.CarTypes;
 using Business.Responses.Brands;
+using Business.Responses.CarTypes;
+using Core.Business.Requests;
+using Core.DataAccess.Paging;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -52,14 +55,14 @@ namespace Business.Concrete
             return carTypeResponse;
         }
 
-        public List<ListCarTypeResponse> GetList()
+        public PaginateListCarTypeResponse GetList(PageRequest request)
         {
-            List<CarType> carType = _carTypeDal.GetList(); //list
+            IPaginate<CarType> brands = _carTypeDal.GetList(index: request.Index,
+                                                             size: request.Size);
 
-            List<ListCarTypeResponse> carTypeList = _mapper.Map<List<ListCarTypeResponse>>(carType); //map
+            PaginateListCarTypeResponse response = _mapper.Map<PaginateListCarTypeResponse>(brands);
 
-            return carTypeList;
-
+            return response;
         }
 
         public void Update(UpdateCarTypeRequest request)

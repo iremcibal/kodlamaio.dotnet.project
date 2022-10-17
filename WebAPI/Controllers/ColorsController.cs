@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Requests.Colors;
 using Business.Responses.Colors;
+using Core.Business.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,10 +19,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<ListColorResponse> GetList()
+        public PaginateListColorResponse GetList([FromQuery] PageRequest request)
         {
-            List<ListColorResponse> response = _colorService.GetList();
-            return response;
+            PaginateListColorResponse result = _colorService.GetList(request);
+            return result;
         }
 
         [HttpPost]

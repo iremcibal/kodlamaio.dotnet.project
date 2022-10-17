@@ -1,5 +1,6 @@
 ﻿using Business.Requests.Fuels;
 using Business.Responses.Fuels;
+using Core.Business.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace Business.Abstract
         public void Delete(DeleteFuelRequest request);
         public void Update(UpdateFuelRequest request);
         GetFuelResponse GetById(int id);
-        List<ListFuelResponse> GetList();
+        PaginateListFuelResponse GetList(PageRequest request);
     }
 }

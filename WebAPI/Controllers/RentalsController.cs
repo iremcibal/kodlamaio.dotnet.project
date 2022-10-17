@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Requests.Rentals;
 using Business.Responses.Rentals;
+using Core.Business.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,16 +19,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<ListRentalResponse> GetList()
+        public PaginateListRentalResponse GetList([FromQuery] PageRequest request)
         {
-            List<ListRentalResponse> result = _rentalService.GetList();
-            return result;
+            PaginateListRentalResponse response = _rentalService.GetList(request);
+            return response;
         }
 
-        [HttpGet("{id}")]
-        public GetRentalResponse GetById(int id)
+        [HttpGet("{Id}")]
+        public GetRentalResponse GetById([FromRoute]GetRentalRequest request)
         {
-            GetRentalResponse response = _rentalService.GetById(id);
+            GetRentalResponse response = _rentalService.GetById(request);
             return response;
         }
 
