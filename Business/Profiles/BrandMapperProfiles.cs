@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Requests.Brands;
 using Business.Responses.Brands;
+using Core.DataAccess.Paging;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Business.Profiles
             CreateMap<DeleteBrandRequest, Brand>();
             CreateMap<Brand, ListBrandResponse>(); 
             CreateMap<Brand, GetBrandResponse>();
+            CreateMap<IPaginate<Brand>, PaginateListBrandResponse>();
         }
         
 

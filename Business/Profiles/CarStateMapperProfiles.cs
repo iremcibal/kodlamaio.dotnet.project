@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Requests.CarStates;
 using Business.Responses.CarStates;
+using Core.DataAccess.Paging;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Business.Profiles
             CreateMap<DeleteCarStateRequest, CarState>();
             CreateMap<CarState, ListCarStateResponse>();
             CreateMap<CarState, GetCarStateResponse>();
+            CreateMap<IPaginate<CarState>, PaginateListCarStateResponse>();
         }
     }
 }

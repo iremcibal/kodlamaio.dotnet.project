@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Business.Requests.CarTypes;
 using Business.Responses.Brands;
+using Business.Responses.CarTypes;
+using Core.DataAccess.Paging;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,7 @@ namespace Business.Profiles
             CreateMap<UpdateCarTypeRequest, CarType>();
             CreateMap<CarType, GetCarTypeResponse>();
             CreateMap<CarType, ListCarTypeResponse>();
+            CreateMap<IPaginate<CarType>, PaginateListCarTypeResponse>();
         }
     }
 }

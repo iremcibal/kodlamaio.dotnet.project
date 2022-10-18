@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Requests.Rentals;
 using Business.Responses.Rentals;
+using Core.DataAccess.Paging;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Business.Profiles
             CreateMap<DeleteRentalRequest, Rental>();
             CreateMap<Rental, ListRentalResponse>();
             CreateMap<Rental, GetRentalResponse>();
+            CreateMap<IPaginate<Rental>, PaginateListRentalResponse>();
         }
     }
 }

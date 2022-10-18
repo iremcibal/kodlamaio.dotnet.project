@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Requests.Models;
 using Business.Responses.Models;
+using Core.DataAccess.Paging;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Business.Profiles
             CreateMap<DeleteModelRequest, Model>();
             CreateMap<Model, ListModelResponse>();
             CreateMap<Model, GetModelResponse>();
+            CreateMap<IPaginate<Model>, PaginateListModelResponse>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Requests.Colors;
 using Business.Responses.Colors;
+using Core.DataAccess.Paging;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Business.Profiles
             CreateMap<UpdateColorRequest, Color>();
             CreateMap<Color, ListColorResponse>();
             CreateMap<Color, GetColorResponse>();
+            CreateMap<IPaginate<Color>, PaginateListColorResponse>();
         }
     }
 }

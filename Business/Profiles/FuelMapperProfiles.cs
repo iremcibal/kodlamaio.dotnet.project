@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.Requests.Fuels;
 using Business.Responses.Fuels;
+using Core.DataAccess.Paging;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Business.Profiles
             CreateMap<UpdateFuelRequest, Fuel>();
             CreateMap<Fuel, ListFuelResponse>();
             CreateMap<Fuel, GetFuelResponse>();
+            CreateMap<IPaginate<Fuel>, PaginateListFuelResponse>();
         }
     }
 }
