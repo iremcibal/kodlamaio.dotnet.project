@@ -3,6 +3,7 @@ using Business.Abstract;
 using Business.BusinessRules;
 using Business.Requests.Brands;
 using Business.Responses.Brands;
+using Core.Business.Mailing;
 using Core.Business.Requests;
 using Core.DataAccess.Paging;
 using DataAccess.Abstract;
@@ -20,11 +21,13 @@ namespace Business.Concrete
         private IBrandDal _brandDal;
         BrandBusinessRules _brandBusinessRules;
         private IMapper _mapper;
-        public BrandManager(IBrandDal brandDal, BrandBusinessRules brandBusinessRules, IMapper mapper)
+        private IMailService _mailService;
+        public BrandManager(IBrandDal brandDal, BrandBusinessRules brandBusinessRules, IMapper mapper, IMailService mailService)
         {
             this._brandDal = brandDal;
             this._brandBusinessRules = brandBusinessRules;
             this._mapper = mapper;
+            this._mailService = mailService;
         }
 
         public void Add(CreateBrandRequest request)
@@ -66,6 +69,15 @@ namespace Business.Concrete
                                                             size: request.Size);
 
             PaginateListBrandResponse response = _mapper.Map<PaginateListBrandResponse>(brands);
+
+            _mailService.SendMail(new Mail
+            {
+                Subject = "GetListBrand",
+                HtmlBody = "",
+                TextBody =  "",
+                ToFullName = "iremcibal",
+                ToMail = "iremcibal@gmail.com"
+            });
 
             return response;
         }

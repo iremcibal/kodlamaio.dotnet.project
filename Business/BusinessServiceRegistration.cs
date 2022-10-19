@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.BusinessRules;
 using Business.Concrete;
+using Core.Business.Mailing;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
@@ -59,7 +60,7 @@ namespace Business
             //services.AddSingleton<CustomerBusinessRules>();
             services.AddSingleton<ICustomerService, CustomerManager>();
 
-
+            services.AddSingleton<IMailService, MailKitMailService>();
             return services;
         }
     }
