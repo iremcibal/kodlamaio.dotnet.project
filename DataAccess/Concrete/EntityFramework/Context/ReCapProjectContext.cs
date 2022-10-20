@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.CrossCuttingConcerns.Security.Entities;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<User> Users;
         public DbSet<Rental> Rentals;
         public DbSet<Customer> Customers;
+        public DbSet<OperationClaim> OperationClaims;
+        public DbSet<UserOperationClaim> UserOperationClaims;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Windows Auth için "...;Integrated Security=True"

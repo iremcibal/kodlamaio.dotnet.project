@@ -1,4 +1,5 @@
-﻿using Core.DataAccess;
+﻿using Core.CrossCuttingConcerns.Security.Entities;
+using Core.DataAccess;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace DataAccess.Abstract
 {
     public interface IUserDal: IEntityRepository<User>
     {
-
+        ICollection<OperationClaim> GetClaims(User user);
     }
 }
